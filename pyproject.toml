@@ -1,0 +1,41 @@
+[project]
+name = "panda3d-developer-manual"
+version = "1.0"
+description = "Unofficial developer-oriented manual for the Panda3D engine internals"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Unlicense" }
+authors = [{ name = "frainfreeze and contributors" }]
+keywords = ["panda3d", "documentation", "game-engine", "sphinx"]
+
+# Building the docs needs these. Pinned to current, maintained majors.
+# (Migrated off the unmaintained recommonmark parser to MyST-Parser.)
+dependencies = [
+    "sphinx>=8,<9",
+    "myst-parser>=4,<5",
+    "sphinx-rtd-theme>=3,<4",
+    "linkify-it-py>=2",          # enables MyST's `linkify` extension
+]
+
+[project.urls]
+Homepage = "https://github.com/frainfreeze/Panda-developer-manual"
+Documentation = "https://panda-developer-manual.readthedocs.io/"
+
+[project.optional-dependencies]
+# Live-reloading local preview: `sphinx-autobuild . _build/html`
+dev = [
+    "sphinx-autobuild>=2024.10.3",
+]
+
+# This project builds documentation and ships NO importable Python package.
+# We still provide a build-system so `pip install .` (and Read the Docs'
+# `method: pip`) can produce an empty wheel whose only job is to pull in the
+# Sphinx/MyST toolchain declared in [project.dependencies]. `py-modules = []`
+# disables setuptools' flat-layout auto-discovery, which would otherwise try to
+# package the docs directories (old/, subsystems/, …) and fail.
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = []

@@ -57,7 +57,7 @@ goto sphinx_ok
 
 :sphinx_python
 
-set SPHINXBUILD=python -m sphinx.__init__
+set SPHINXBUILD=python -m sphinx
 %SPHINXBUILD% 2> nul
 if errorlevel 9009 (
 	echo.

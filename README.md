@@ -1,35 +1,28 @@
-Unofficial Panda3D  developer manual
-======================
+Unofficial Panda3D engine developer manual
+==========================================
 
-Collection of useful information for users and developers of Panda3D
-
+A developer oriented manual for **understanding and modifying the Panda3D engine
+internals** , built from the engine source (the primary source of truth) 
+and ~20 years of community knowledge.
 
 [![Documentation Status](https://readthedocs.org/projects/panda-developer-manual/badge/?version=latest)](http://panda-developer-manual.readthedocs.io/en/latest/?badge=latest)
-[![Dwnload as PDF](https://img.shields.io/badge/download-PDF-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/pdf/latest/)
-[![Dwnload as HTML](https://img.shields.io/badge/download-HTML-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/htmlzip/latest/)
-[![Dwnload as EPUB](https://img.shields.io/badge/download-EPUB-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/epub/latest/)
+[![Download as PDF](https://img.shields.io/badge/download-PDF-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/pdf/latest/)
+[![Download as HTML](https://img.shields.io/badge/download-HTML-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/htmlzip/latest/)
+[![Download as EPUB](https://img.shields.io/badge/download-EPUB-blue.svg?style=flat-square)](http://readthedocs.org/projects/panda-developer-manual/downloads/epub/latest/)
 
 
+### Building the docs with [uv](https://docs.astral.sh/uv/) (recommended)
 
-Before you start editing:
-```
-$ pip install sphinx sphinx-autobuild
-$ pip install recommonmark
-$ pip install sphinx_rtd_theme
+```bash
+uv run make html             # creates venv with deps & builds, output in _build/html/
 ```
 
+Other output formats: `make epub`, `make latexpdf` (PDF needs a LaTeX install).
 
+----
 
-To build the docs:
-```
-$ make html
-```
+Released to the public domain under the [Unlicense](UNLICENSE).
 
-
-
-
-
-Cool editors:
-
-[Typora](https://www.typora.io/) | [Markdownpad 2](http://markdownpad.com/) | [vim-markdown-composer](https://github.com/euclio/vim-markdown-composer)
-
+[sphinx]: https://www.sphinx-doc.org/
+[myst]: https://myst-parser.readthedocs.io/
+[uv]: https://docs.astral.sh/uv/
