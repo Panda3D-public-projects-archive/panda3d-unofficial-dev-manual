@@ -34,6 +34,8 @@ and the **[Cross-cutting concepts](cross-cutting-concepts.md)** chapter.
 ## makepanda ##
 Panda3D's self-contained build system (`makepanda.py` / `makepandacore.py`).
 The newer CMake build lives in `CMakeLists.txt` + `cmake/`.
+See **[Building Panda3D (makepanda)](building-and-makepanda.md)** for how the
+build graph, OPTS tags, interrogate flow, and library integration work.
 
 ## models ##
 Some free models for use in the samples. Origin is largely CMU.
