@@ -12,6 +12,7 @@ internals. See the :doc:`preface` for how it is organized.
    preface
    source-tree
    building-and-makepanda
+   building-cmake
    cross-cutting-concepts
    project-and-ecosystem
 

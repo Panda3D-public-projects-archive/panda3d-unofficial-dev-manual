@@ -25,16 +25,26 @@ There are two build systems in the tree, and they are not equivalent:
   `--everything` enables every third-party package it can find; `--nothing`
   disables them all (then add `--use-PKG` for the ones you want).
 
-- **`CMakeLists.txt`** (top-level + `cmake/`) — a newer, community-driven CMake
-  build. It works and is increasingly used, but is not yet the build the
-  project ships releases with. Out-of-source builds are enforced
-  (`CMAKE_DISABLE_IN_SOURCE_BUILD`), and the default build type is `Standard`
-  (see the optimize question below).
+- **`CMakeLists.txt`** (top-level + `cmake/`) — the newer CMake build, and the
+  one the maintainers now recommend for development. Out-of-source builds are
+  enforced (`CMAKE_DISABLE_IN_SOURCE_BUILD`), and the default build type is
+  `Standard` (see the optimize question below):
 
-When in doubt, use `makepanda` — it is the one the build/CI docs and the
+  ```sh
+  mkdir build && cd build
+  cmake .. && cmake --build . --config Standard --parallel 4
+  ```
+
+**Which one?** For engine development, CMake — rdb: "We are in the process of
+phasing out the makepanda script with CMake" (issue #1729, 2025-03-03). But
+official release artifacts are still makepanda-built ("we don't build the public
+builds with CMake yet", 2026-03-26), and the older
 [official "building from source" guide](https://docs.panda3d.org/1.10/python/introduction/installation-windows)
-assume. See [Project health, ecosystem & deployment](project-and-ecosystem.md)
-for the build/packaging footguns.
+assumes makepanda. Expect to need both. Full detail in
+**[Building Panda3D (CMake)](building-cmake.md)** and
+**[Building Panda3D (makepanda)](building-and-makepanda.md)**; see
+[Project health, ecosystem & deployment](project-and-ecosystem.md) for the
+build/packaging footguns.
 
 ### How do I do a debug or `optimize=N` build?
 
@@ -70,7 +80,11 @@ makepanda exposes one `--use-PKG` / `--no-PKG` pair **per third-party package**
 
 CMake uses the inverse convention: per-package `HAVE_<PKG>` options
 (`cmake/macros/PackageConfig.cmake`) plus the top-level `BUILD_DTOOL`,
-`BUILD_PANDA`, `BUILD_DIRECT`, `BUILD_PANDATOOL`, `BUILD_CONTRIB` toggles.
+`BUILD_PANDA`, `BUILD_DIRECT`, `BUILD_PANDATOOL`, `BUILD_CONTRIB` toggles. So
+`--no-eigen` becomes `-DHAVE_EIGEN=OFF`. Note there is **no CMake equivalent of
+`--nothing`** — every found library is enabled by default, so a minimal build is
+built by subtraction. Full translation table in
+[Building Panda3D (CMake)](building-cmake.md).
 
 ### Where do build outputs go?
 

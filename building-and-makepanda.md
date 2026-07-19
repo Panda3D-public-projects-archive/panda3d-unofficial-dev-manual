@@ -18,7 +18,9 @@ to build it, use cmake" (maxwell175), and there is an open issue (#1310) to
 "Remove makepanda backend" while keeping a thin makepanda *frontend* wrapping
 CMake so existing workflows don't break (Moguri). Where the two disagree, the
 `CMakeLists.txt` in each `panda/src/<X>/` directory is the cleaner statement of
-the same intent.
+the same intent. The CMake build is documented in its own chapter —
+**[Building Panda3D (CMake)](building-cmake.md)** — including a
+makepanda-flag → CMake-variable translation table.
 
 **Why makepanda exists at all.** It was written by Josh Yelon to replace the
 older, powerful-but-baffling `ppremake` system with something a newcomer could
@@ -268,11 +270,19 @@ pre-existing inputs; it has no composite-generator of its own. (Larger subsystem
 are split across `_composite1`, `_composite2`, … to bound per-object compile
 memory.)
 
+CMake does **not** use these checked-in files; it generates its own composites
+via `CMAKE_UNITY_BUILD`. That divergence has bitten: a `.cxx` reachable only
+through a checked-in composite is invisible to CMake unless someone also adds it
+to that directory's `set(P3X_SOURCES …)` list. See
+[Building Panda3D (CMake)](building-cmake.md).
+
 The composite build is also a **code-quality check**: because everything is
 `#include`d together, a `.cxx` that forgot to include a header it depends on still
 compiles (a sibling already pulled it in). Turning composites off exposes those
-latent bugs — CFSworks calls the CMake knob for it (`COMPOSITE_SOURCE_LIMIT=0`)
-"an essential code quality check." drwr's warning from the ppremake era still
+latent bugs — CFSworks calls the CMake knob for it "an essential code quality
+check." (He named it `COMPOSITE_SOURCE_LIMIT=0` in 2019; that variable no longer
+exists in the tree — the modern equivalent is `-DCMAKE_UNITY_BUILD=OFF`.) drwr's
+warning from the ppremake era still
 holds: with composites off "you will find many compilation errors from header
 files that aren't `#include`d where they should be."
 
